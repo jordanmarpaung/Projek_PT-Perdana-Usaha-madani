@@ -4,6 +4,8 @@ import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
 import Layanan from './pages/Layanan';
+import Kegiatan from './pages/Kegiatan';
+import Karir from './pages/Karir';
 
 function App() {
   const [activePage, setActivePage] = useState('beranda');
@@ -17,7 +19,8 @@ function App() {
           {activePage === 'beranda' && <Home setActivePage={setActivePage} />}
           {activePage === 'tentang' && <About setActivePage={setActivePage} />}
           {activePage === 'layanan' && <Layanan />}
-          {activePage === 'karir' && (<div className="py-32 text-center"><h2 className="text-3xl font-bold">Halaman Karir</h2></div>)}
+          {activePage === 'kegiatan' && <Kegiatan />}
+          {activePage === 'karir' && <Karir />}
         </main>
       
       {/* ==================== FOOTER ==================== */}

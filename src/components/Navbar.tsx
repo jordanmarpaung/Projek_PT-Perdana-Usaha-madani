@@ -55,8 +55,8 @@ export default function Navbar({ activePage, setActivePage }: NavbarProps) {
                 
                 <button 
                   onClick={() => {
-                    setActivePage('tentang');
-                    setTimeout(() => window.scrollTo({ top: 850, behavior: 'smooth' }), 100);
+                    setActivePage('Tim Kami');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                   }} 
                   className="block w-full text-left px-5 py-3 hover:bg-yellow-50 hover:text-yellow-700 text-xs font-bold border-b border-gray-100 transition-colors uppercase tracking-wider"
                 >
@@ -65,8 +65,8 @@ export default function Navbar({ activePage, setActivePage }: NavbarProps) {
                 
                 <button 
                   onClick={() => {
-                    setActivePage('tentang');
-                    setTimeout(() => window.scrollTo({ top: 1650, behavior: 'smooth' }), 100);
+                    setActivePage('kegiatan');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                   }} 
                   className="block w-full text-left px-5 py-3 hover:bg-yellow-50 hover:text-yellow-700 text-xs font-bold transition-colors uppercase tracking-wider"
                 >
@@ -74,7 +74,7 @@ export default function Navbar({ activePage, setActivePage }: NavbarProps) {
                 </button>
               </div>
             </div>
-            {/* ========================================== */}
+            {/* ======================='l/:=================== */}
 
             <button onClick={() => setActivePage('layanan')} className={`font-bold transition ${activePage === 'layanan' ? 'text-yellow-700' : 'text-gray-600 hover:text-yellow-700'}`}>Layanan</button>
             <button onClick={() => setActivePage('karir')} className={`font-bold transition ${activePage === 'karir' ? 'text-yellow-700' : 'text-gray-600 hover:text-yellow-700'}`}>Karir</button>

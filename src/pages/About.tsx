@@ -133,7 +133,7 @@ export default function About() {
           
           {/* Judul Bagian */}
           <div className="text-center mb-20 anim-fade-up">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Struktur Organisasi & Tim Ahli</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Jajaran Kepemimpinan Perusahaan</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Didukung oleh jajaran profesional dengan pengalaman mumpuni dalam manajemen penagihan, keuangan, dan kontrol kualitas.
             </p>
