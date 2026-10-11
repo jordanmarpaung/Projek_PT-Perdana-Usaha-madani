@@ -6,6 +6,8 @@ import About from './pages/About';
 import Layanan from './pages/Layanan';
 import Kegiatan from './pages/Kegiatan';
 import Karir from './pages/Karir';
+import Contact from './pages/Contact';
+
 
 function App() {
   const [activePage, setActivePage] = useState('beranda');
@@ -15,17 +17,18 @@ function App() {
 
       <Navbar activePage={activePage} setActivePage={setActivePage} />
        
-        <main className="flex-grow pt-24">
+        <main className="flex-grow pt-[144px]">
           {activePage === 'beranda' && <Home setActivePage={setActivePage} />}
-          {activePage === 'tentang' && <About setActivePage={setActivePage} />}
+          {activePage === 'tentang' && <About />}
           {activePage === 'layanan' && <Layanan />}
           {activePage === 'kegiatan' && <Kegiatan />}
           {activePage === 'karir' && <Karir />}
+          {activePage === 'kontak' && <Contact />}
         </main>
       
       {/* ==================== FOOTER ==================== */}
       <Footer setActivePage={setActivePage} />
-
+n
     </div>
   );
 }

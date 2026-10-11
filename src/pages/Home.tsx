@@ -11,6 +11,8 @@ import logoTeknologiInternasional from '../assets/PT_TIN.png';
 import logoInvestasiDigital from '../assets/logo bizer.png';
 import fotoBenny from '../assets/komisaris.png';
 import fotoRosinta from '../assets/Direktur.png';
+import fotoTempat from '../assets/tempat.jpg';
+import fototrio from '../assets/gambartriosatu.png';
 
 interface HomeProps {
   setActivePage: (page: string) => void;
@@ -20,30 +22,74 @@ export default function Home({ setActivePage }: HomeProps) {
   return (
     <div className="animate-fade-in">
       
-      {/* 1. HERO SECTION */}
-      <section className="relative w-full h-[85vh] bg-gray-900 flex items-center">
-        <div className="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 opacity-95"></div> 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full pt-10">
-          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 max-w-4xl leading-tight tracking-tight">
-            Profesionalisme dalam <br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">
-              Resolusi Kredit Anda.
-            </span>
-          </h1>
-          <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl leading-relaxed font-light">
-            Sebagai mitra terpercaya lembaga perbankan dan non-perbankan, kami mengedepankan etika, kepatuhan (OJK/AFPI), dan efisiensi dalam setiap langkah pemulihan aset Anda.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-5">
-            <button onClick={() => setActivePage('layanan')} className="bg-yellow-600 text-white text-center px-8 py-4 rounded-sm font-bold hover:bg-yellow-700 transition shadow-lg flex items-center justify-center gap-3">
-              Jelajahi Layanan Kami <FontAwesomeIcon icon={faArrowRight} />
-            </button>
-            <button onClick={() => setActivePage('tentang')} className="bg-transparent border border-gray-400 text-white text-center px-8 py-4 rounded-sm font-bold hover:bg-white hover:text-gray-900 transition">
-              Pelajari Perusahaan
-            </button>
+           {/* 1. HERO SECTION */}
+      <section className="relative isolate w-full overflow-hidden bg-stone-100">
+        {/* Foto kantor, dibuat samar sebagai latar */}
+        <img
+          src={fotoTempat}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
+       <div className="absolute inset-0 bg-gradient-to-r from-white/70 via-white/85 to-white/95"></div> 
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+          {/* Kiri: teks */}
+          <div className="lg:col-span-6 py-16 lg:py-24 self-center">
+            
+            <h1 className="text-4xl sm:text-5xl text-slate-900 leading-[1.1] tracking-tight mb-6">
+              <span className="block font-light">Profesionalisme dalam</span>
+              <span className="block font-bold text-yellow-700">Resolusi Kredit Anda.</span>
+            </h1>
+
+            <div className="w-20 h-1 bg-yellow-600 mb-6"></div>
+
+            <p className="text-base md:text-lg text-slate-600 mb-8 max-w-lg leading-relaxed">
+              Sebagai mitra terpercaya lembaga perbankan dan non-perbankan, kami mengedepankan etika, kepatuhan (OJK/AFPI), dan efisiensi dalam setiap langkah pemulihan aset Anda.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button
+                onClick={() => setActivePage('layanan')}
+                className="bg-yellow-600 text-white text-center px-8 py-4 rounded-sm font-semibold hover:bg-yellow-700 transition shadow-lg flex items-center justify-center gap-3"
+              >
+                Jelajahi Layanan Kami <FontAwesomeIcon icon={faArrowRight} />
+              </button>
+              <button
+                onClick={() => setActivePage('tentang')}
+                className="bg-transparent border border-slate-400 text-slate-800 text-center px-8 py-4 rounded-sm font-semibold hover:bg-slate-900 hover:text-white hover:border-slate-900 transition"
+              >
+                Pelajari Perusahaan
+              </button>
+            </div>
+          </div>
+
+          {/* Kanan: tiga pilar, latar putih disamarkan */}
+          <div className="lg:col-span-6 flex justify-center lg:justify-end self-end">
+            <img
+              src={fototrio}
+              alt="Pilar utama PT Perdana Usaha Madani"
+              className="relative w-full max-w-xl block mix-blend-darken lg:scale-[1.08] origin-bottom"
+            />
+          </div>
+        </div>
+
+        {/* Blok gelap di dasar */}
+        <div className="relative bg-slate-900 border-t-4 border-yellow-600">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {[
+              { ikon: faUserTie, teks: 'Etika profesional' },
+              { ikon: faClipboardCheck, teks: 'Kepatuhan OJK/AFPI' },
+              { ikon: faShieldHalved, teks: 'Efisiensi pemulihan aset' },
+            ].map((item) => (
+              <div key={item.teks} className="flex items-center gap-3 text-gray-200 text-sm">
+                <FontAwesomeIcon icon={item.ikon} className="text-yellow-500 text-lg" />
+                {item.teks}
+              </div>
+            ))}
           </div>
         </div>
       </section>
-
       {/* 2. KLIEN & MITRA KAMI */}
       <section className="py-16 bg-gray-50 border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
