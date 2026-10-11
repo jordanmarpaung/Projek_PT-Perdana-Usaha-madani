@@ -8,7 +8,6 @@ import Kegiatan from './pages/Kegiatan';
 import Karir from './pages/Karir';
 import Contact from './pages/Contact';
 
-
 function App() {
   const [activePage, setActivePage] = useState('beranda');
 
@@ -28,7 +27,6 @@ function App() {
       
       {/* ==================== FOOTER ==================== */}
       <Footer setActivePage={setActivePage} />
-n
     </div>
   );
 }
