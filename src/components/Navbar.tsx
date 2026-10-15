@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import logo from '../assets/logo_baru.png'; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLocationDot, faEnvelope, faHeadset, faChevronDown } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 interface NavbarProps {
   activePage: string;
@@ -13,7 +13,6 @@ export default function Navbar({ activePage, setActivePage }: NavbarProps) {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Akan aktif (true) jika layar digeser ke bawah lebih dari 20 pixel
       setIsScrolled(window.scrollY > 20); 
     };
     window.addEventListener('scroll', handleScroll);
@@ -21,107 +20,122 @@ export default function Navbar({ activePage, setActivePage }: NavbarProps) {
   }, []);
 
   return (
-    // PERUBAHAN: Menambahkan efek geser ke atas (-translate-y-[80px]) saat di-scroll
-    <nav 
-      className={`fixed top-0 w-full z-50 shadow-lg bg-[#2B304C] transition-transform duration-500 ease-in-out ${
-        isScrolled ? 'translate-y-0 md:-translate-y-[80px]' : 'translate-y-0'
-      }`}
-    >
+    // Wadah pembungkus agar navbar bisa melayang di tengah
+    <div className={`fixed w-full z-50 flex justify-center transition-all duration-500 ease-in-out ${isScrolled ? 'top-4' : 'top-6'}`}>
       
-      {/* ========================================== */}
-      {/* 1. BAGIAN ATAS (PUTIH): Logo & Info Kontak */}
-      {/* ========================================== */}
-      {/* PERUBAHAN: Tinggi area putih dikunci di 80px (h-[80px]) */}
-      <div className="bg-white hidden md:flex border-b border-gray-100 h-[80px] items-center">
-        <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-          
-          {/* Logo di Kiri */}
-          <div 
-            className="flex-shrink-0 flex items-center cursor-pointer"
-            onClick={() => {
-              setActivePage('beranda');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-          >
-            <img src={logo} alt="Logo PT Perdana Usaha Madani" className="h-14 w-auto mr-3" />
-            <div className="hidden lg:flex flex-col">
-              <span className="font-extrabold text-base text-gray-900 tracking-wider leading-none">PT PERDANA </span>
-              <span className="font-extrabold text-base text-gray-900 tracking-wider leading-tight">USAHA MADANI</span>
-            </div>
-          </div>
-
-          {/* Info Kontak di Kanan (SUDAH HURUF BESAR SEMUA) */}
-          <div className="flex space-x-8 lg:space-x-12 items-center">
-            {/* Alamat Kantor */}
-            <div className="flex items-start gap-3">
-              <FontAwesomeIcon icon={faLocationDot} className="text-yellow-600 text-2xl mt-0.5" />
-              <div className="flex flex-col text-left">
-                <span className="text-gray-500 text-[10px] font-bold uppercase tracking-wider">Alamat Kantor</span>
-                <span className="text-gray-900 text-[11px] font-bold">Ruko Rose Garden 5 No 20</span>
-                <span className="text-gray-900 text-[10px] font-semibold">Jl. Raya Vila Nusa Indah Blk. FF, Bojong Kulur, Gn. Putri, Bogor</span>
-              </div>
-            </div>
-            {/* Email */}
-            <div className="flex items-start gap-3">
-              <FontAwesomeIcon icon={faEnvelope} className="text-yellow-600 text-2xl mt-0.5" />
-              <div className="flex flex-col text-left">
-                <span className="text-gray-500 text-[10px] font-bold uppercase tracking-wider">Email</span>
-                <span className="text-gray-900 text-[11px] font-semibold">perdanausahamadani@gmail.com</span>
-              </div>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-
-      {/* ========================================== */}
-      {/* 2. BAGIAN BAWAH (GELAP): Menu & Tombol CTA */}
-      {/* ========================================== */}
-      <div className="w-full h-14 md:h-16 flex items-center relative">
+      {/* NAVBAR BENTUK KAPSUL (FLOATING CAPSULE) */}
+      <nav 
+        className={`flex items-center justify-between rounded-full transition-all duration-500 ease-in-out border
+          ${isScrolled 
+            ? 'w-[90%] md:w-[85%] max-w-6xl bg-[#2B304C]/95 backdrop-blur-md shadow-2xl py-2 px-6 border-transparent' 
+            : 'w-[95%] max-w-7xl bg-white/80 backdrop-blur-md shadow-lg py-3 px-8 border-white/50'
+          }`}
+      >
         
-        {/* Latar Belakang Warna Kuning untuk Menu */}
-        <div className="bg-yellow-600 h-full w-[75%] md:w-[70%] lg:w-[65%] rounded-r-full flex items-center justify-center space-x-5 md:space-x-8 lg:space-x-12 shadow-[4px_0_10px_rgba(0,0,0,0.15)] z-10 pl-4 pr-10">
-          
-          <button onClick={() => setActivePage('beranda')} className="text-white text-xs md:text-sm font-bold uppercase tracking-wider hover:text-yellow-900 transition">Beranda</button>
+        {/* ========================================== */}
+        {/* LOGO & NAMA PERUSAHAAN                     */}
+        {/* ========================================== */}
+        <div 
+          className="flex-shrink-0 flex items-center cursor-pointer group"
+          onClick={() => {
+            setActivePage('beranda');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+        >
+          <img src={logo} alt="Logo Perdana Usaha Madani" className={`transition-all duration-300 mr-3 ${isScrolled ? 'h-10' : 'h-12'}`} />
+          <div className="hidden md:flex flex-col">
+            <span className={`font-extrabold tracking-[0.2em] leading-tight transition-colors duration-300 ${
+              isScrolled ? 'text-white text-lg' : 'text-[#8A8D35] text-xl'
+            }`}>
+              PERDANA
+            </span>
+            <span className={`font-semibold tracking-[0.1em] text-[10px] transition-colors duration-300 ${
+              isScrolled ? 'text-gray-300' : 'text-[#8A8D35]' 
+            }`}>
+              USAHA MADANI
+            </span>
+          </div>
+        </div>
+
+        {/* ========================================== */}
+        {/* MENU TENGAH                                */}
+        {/* ========================================== */}
+        <div className="hidden lg:flex items-center space-x-8">
+          <button 
+            onClick={() => setActivePage('beranda')} 
+            className={`text-xs font-bold uppercase tracking-wider transition-colors ${
+              activePage === 'beranda' 
+                ? (isScrolled ? 'text-yellow-400' : 'text-[#8A8D35]')
+                : (isScrolled ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-[#8A8D35]')
+            }`}
+          >
+            Beranda
+          </button>
           
           {/* Dropdown Tentang Kami */}
-          <div className="relative group h-full flex items-center">
+          <div className="relative group h-full flex items-center py-2">
             <button 
               onClick={() => setActivePage('tentang')} 
-              className="text-white text-xs md:text-sm font-bold uppercase tracking-wider flex items-center gap-1.5 hover:text-yellow-900 transition"
+              className={`text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors ${
+                ['tentang', 'Tim Kami', 'kegiatan'].includes(activePage) 
+                  ? (isScrolled ? 'text-yellow-400' : 'text-[#8A8D35]')
+                  : (isScrolled ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-[#8A8D35]')
+              }`}
             >
               Tentang Kami
-              <FontAwesomeIcon icon={faChevronDown} className="text-[10px] transition-transform duration-300 group-hover:rotate-180" />
+              <FontAwesomeIcon icon={faChevronDown} className="text-[10px] opacity-70 group-hover:rotate-180 transition-transform duration-300" />
             </button>
-            <div className="absolute top-[56px] md:top-[64px] left-1/2 -translate-x-1/2 w-48 bg-white text-gray-800 shadow-xl rounded-b-md overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 border-t-4 border-yellow-600">
-              <button onClick={() => { setActivePage('tentang'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="block w-full text-center px-4 py-3 hover:bg-yellow-50 text-xs font-bold border-b border-gray-100 uppercase">Perusahaan</button>
-              <button onClick={() => { setActivePage('Tim Kami'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="block w-full text-center px-4 py-3 hover:bg-yellow-50 text-xs font-bold border-b border-gray-100 uppercase">Tim Kami</button>
-              <button onClick={() => { setActivePage('kegiatan'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="block w-full text-center px-4 py-3 hover:bg-yellow-50 text-xs font-bold uppercase">Kegiatan</button>
+            
+            <div className="absolute top-10 left-1/2 -translate-x-1/2 w-48 bg-white text-gray-800 shadow-xl rounded-xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 border border-gray-100">
+              <button onClick={() => { setActivePage('tentang'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="block w-full text-left px-5 py-3 hover:bg-yellow-50 text-xs font-bold border-b border-gray-50 transition-colors">Profil Perusahaan</button>
+              <button onClick={() => { setActivePage('Tim Kami'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="block w-full text-left px-5 py-3 hover:bg-yellow-50 text-xs font-bold border-b border-gray-50 transition-colors">Jajaran Manajemen</button>
+              <button onClick={() => { setActivePage('kegiatan'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="block w-full text-left px-5 py-3 hover:bg-yellow-50 text-xs font-bold transition-colors">Kegiatan Kami</button>
             </div>
           </div>
 
-          <button onClick={() => setActivePage('layanan')} className="text-white text-xs md:text-sm font-bold uppercase tracking-wider hover:text-yellow-900 transition">Layanan</button>
-          <button onClick={() => setActivePage('karir')} className="text-white text-xs md:text-sm font-bold uppercase tracking-wider hover:text-yellow-900 transition">Karir</button>
+          <button 
+            onClick={() => setActivePage('layanan')} 
+            className={`text-xs font-bold uppercase tracking-wider transition-colors ${
+              activePage === 'layanan' 
+                ? (isScrolled ? 'text-yellow-400' : 'text-[#8A8D35]')
+                : (isScrolled ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-[#8A8D35]')
+            }`}
+          >
+            Layanan
+          </button>
+          
+          <button 
+            onClick={() => setActivePage('karir')} 
+            className={`text-xs font-bold uppercase tracking-wider transition-colors ${
+              activePage === 'karir' 
+                ? (isScrolled ? 'text-yellow-400' : 'text-[#8A8D35]')
+                : (isScrolled ? 'text-gray-300 hover:text-white' : 'text-gray-600 hover:text-[#8A8D35]')
+            }`}
+          >
+            Karir
+          </button>
         </div>
 
-        {/* Area Kanan: Tombol Hubungi Kami */}
-        <div className="flex-1 flex justify-center px-2">
+        {/* ========================================== */}
+        {/* TOMBOL CALL TO ACTION (Kanan)              */}
+        {/* ========================================== */}
+        <div className="flex items-center">
           <button 
             onClick={() => {
               setActivePage('kontak');
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="bg-[#1A1F36] border border-gray-600 shadow-lg text-white rounded-full px-5 md:px-7 py-2 md:py-2.5 flex items-center gap-3 hover:bg-black transition-all cursor-pointer"
+            className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold tracking-wide transition-all duration-300 shadow-md border ${
+              isScrolled 
+                ? 'bg-yellow-600 border-yellow-500 text-white hover:bg-yellow-500' 
+                : 'bg-[#2B304C] border-[#2B304C] text-white hover:bg-black hover:border-black'
+            }`}
           >
-            <FontAwesomeIcon icon={faHeadset} className="text-cyan-400 text-xl md:text-2xl" />
-            <div className="flex flex-col text-left hidden lg:flex">
-              <span className="text-[10px] md:text-xs text-gray-300 font-medium">Hubungi Kami</span>
-              <span className="font-bold text-xs md:text-sm tracking-wide">(+62) 852 74274069</span>
-            </div>
+            Mulai Diskusi <FontAwesomeIcon icon={faArrowRight} />
           </button>
         </div>
 
-      </div>
-    </nav>
+      </nav>
+    </div>
   );
 }

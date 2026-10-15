@@ -1,8 +1,51 @@
-import React from 'react';
+import { useState } from 'react';
+import type { FormEvent } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faPhoneAlt, faEnvelope, faClock, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
+const URL_KIRIM = 'https://script.google.com/macros/s/AKfycbzkd0Q0bEEKl3LIAWMoet4EE1nli2Z3jfll0L1ZD8s1xoZRClQACwa-4zqhZKl0fQfY/exec'
+
 export default function HubungiKami() {
+    const [status, setStatus] = useState<'isi' | 'kirim' | 'sukses'>('isi');
+  const [error, setError] = useState('');
+
+  const kirim = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setError('');
+    const form = e.currentTarget;
+    const f = new FormData(form);
+    if (f.get('situs')) return; // diisi bot, abaikan
+    if (!URL_KIRIM) {
+      setError('Formulir belum tersambung ke server. Hubungi admin website.');
+      return;
+    }
+
+    setStatus('kirim');
+    try {
+      const res = await fetch(URL_KIRIM, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          jenis: 'kontak',
+          nama: f.get('nama'),
+          perusahaan: f.get('perusahaan'),
+          email: f.get('email'),
+          hp: f.get('hp'),
+          perihal: f.get('perihal'),
+          pesan: f.get('pesan'),
+        }),
+      });
+      const hasil = await res.json();
+      if (!hasil.ok) throw new Error(hasil.pesan || 'Gagal mengirim');
+      form.reset();
+      setStatus('sukses');
+    } catch (err){
+      console.error(err);
+      setStatus('isi');
+      setError('Pesan gagal dikirim: ' + (err instanceof Error ? err.message : 'Terjadi kesalahan coba lagi'));
+    }
+  };
+
   return (
     <div className="animate-fade-in bg-gray-50 min-h-screen pt-4 pb-24">
       
@@ -13,7 +56,7 @@ export default function HubungiKami() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-3xl md:text-5xl font-extrabold mb-4 tracking-tight">Hubungi Kami</h1>
           <p className="text-gray-300 max-w-2xl mx-auto text-lg">
-            Tim ahli kami siap membantu mengamankan arus kas dan menekan angka NPL perusahaan Anda. Mari diskusikan solusi pemulihan aset Anda.
+            Solusi terpercaya untuk pengelolaan piutang dan pemulihan aset perusahaan Anda. Hubungi kami untuk mendiskusikan strategi penanganan NPL yang efektif dan profesional.
           </p>
         </div>
       </div>
@@ -42,8 +85,8 @@ export default function HubungiKami() {
                     <h4 className="font-bold text-lg mb-1">Alamat Kantor Pusat</h4>
                     <p className="text-yellow-100 text-sm leading-relaxed">
                       Head Office PT PUM<br/>
-                       Jl. Rose Garden 5<br/>
-                      Bekasi, Jawa Barat, Indonesia
+                       Ruko Rose Garden 5 No.20<br/>
+                      Galaxy Bekasi Selatan, kota Bekasi
                     </p>
                   </div>
                 </div>
@@ -65,7 +108,7 @@ export default function HubungiKami() {
                     <FontAwesomeIcon icon={faEnvelope} className="text-xl w-5 h-5" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-lg mb-1">Email Kemitraan</h4>
+                    <h4 className="font-bold text-lg mb-1">Email Perusahaan</h4>
                     <p className="text-yellow-100 text-sm">perdanausahamadani.com</p>
                   </div>
                 </div>
@@ -86,60 +129,79 @@ export default function HubungiKami() {
 
           {/* KOLOM KANAN: Formulir B2B */}
           <div className="p-8 md:p-12 lg:w-3/5">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Kirimkan Permintaan Kemitraan</h2>
-            <p className="text-gray-500 text-sm mb-8">Isi detail institusi Anda, dan tim kami akan segera menghubungi kembali.</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Kirim pesan kepada kami</h2>
+            <p className="text-gray-500 text-sm mb-8">Isi formulir berikut dan tim kami akan segera menghubungi anda kembali.</p>
             
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-6" onSubmit={kirim}>
+              <input type="text" name="situs" tabIndex={-1} autoComplete="off" aria-hidden="true" className="absolute -left-[9999px]" />
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Input Nama */}
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-2 uppercase tracking-wide">Nama Lengkap *</label>
-                  <input type="text" className="w-full px-4 py-3 rounded-md bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 outline-none transition" placeholder="Cth: John Doe" required />
+                  <label className="block text-xs font-bold text-gray-700 mb-2 tracking-wide">Nama Lengkap *</label>
+                  <input type="text" className="w-full px-4 py-3 rounded-md bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 outline-none transition" name="nama" placeholder="Isi Nama Lengkap" required />
                 </div>
                 {/* Input Institusi */}
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-2 uppercase tracking-wide">Nama Perusahaan / Institusi *</label>
-                  <input type="text" className="w-full px-4 py-3 rounded-md bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 outline-none transition" placeholder="Cth: PT Bank ABC Tbk" required />
+                  <label className="block text-xs font-bold text-gray-700 mb-2 tracking-wide">Nama Perusahaan (opsional)</label>
+                  <input type="text" className="w-full px-4 py-3 rounded-md bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 outline-none transition" name="perusahaan" placeholder="Isi nama perusahaan" />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Input Email Perusahaan */}
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-2 uppercase tracking-wide">Email Perusahaan *</label>
-                  <input type="email" className="w-full px-4 py-3 rounded-md bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 outline-none transition" placeholder="john@perusahaan.com" required />
+                  <label className="block text-xs font-bold text-gray-700 mb-2 tracking-wide">Email Perusahaan *</label>
+                  <input type="email" className="w-full px-4 py-3 rounded-md bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 outline-none transition" name="email" placeholder="Isi email" required />
                 </div>
                 {/* Input Nomor Telp */}
                 <div>
-                  <label className="block text-xs font-bold text-gray-700 mb-2 uppercase tracking-wide">No. Telepon / WhatsApp *</label>
-                  <input type="tel" className="w-full px-4 py-3 rounded-md bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 outline-none transition" placeholder="0812-3456-7890" required />
+                  <label className="block text-xs font-bold text-gray-700 mb-2 tracking-wide">No. Telepon / WhatsApp *</label>
+                  <input type="tel" className="w-full px-4 py-3 rounded-md bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 outline-none transition" name="hp" placeholder="0812-3456-7890" required />
                 </div>
               </div>
 
-              {/* Input Layanan (Dropdown) */}
+              {/* perihal*/}
               <div>
-                <label className="block text-xs font-bold text-gray-700 mb-2 uppercase tracking-wide">Layanan yang Diminati *</label>
-                <select className="w-full px-4 py-3 rounded-md bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 outline-none transition cursor-pointer text-gray-700" required>
-                  <option value="" disabled selected>-- Pilih Layanan Utama --</option>
-                  <option value="desk_collection">Layanan Desk Collection</option>
-                  <option value="field_collection">Layanan Field Collection</option>
-                  <option value="konsultasi">Konsultasi Manajemen Piutang</option>
-                  <option value="lainnya">Pertanyaan Lainnya</option>
+                <label className="block text-xs font-bold text-gray-700 mb-2 tracking-wide">Perihal *</label>
+                <select
+                name="perihal"
+                defaultValue=""
+                className="w-full px-4 py-3 rounded-md bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 outline-none transition cursor-pointer text-gray-700" required>
+
+                  <option value="" disabled>-- Pilih perihal --</option>
+                  <option value="informasi">Permintaan Informasi</option>
+                  <option value="kerja_sama">Kemitraan</option>
+                  <option value="penawaran">Permintaan penawaran</option>
+                  <option value="saran">saran dan masukan</option>
+                  <option value="pengaduan">Pengaduan</option>
+                  <option value="lainnya">Lainnya</option>
                 </select>
               </div>
 
               {/* Input Pesan */}
               <div>
-                <label className="block text-xs font-bold text-gray-700 mb-2 uppercase tracking-wide">Rincian Kebutuhan *</label>
-                <textarea rows={4} className="w-full px-4 py-3 rounded-md bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 outline-none transition resize-none" placeholder="Jelaskan secara singkat jenis tagihan atau target pemulihan aset yang Anda harapkan..." required></textarea>
+                <label className="block text-xs font-bold text-gray-700 mb-2 tracking-wide">Tulis pesan anda*</label>
+                <textarea name="pesan" rows={4} className="w-full px-4 py-3 rounded-md bg-gray-50 border border-gray-200 focus:bg-white focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 outline-none transition resize-none" placeholder="Tuliskan pesan anda di sini..." required></textarea>
               </div>
 
-              {/* Tombol Submit */}
-              <button type="submit" className="w-full md:w-auto px-8 py-3.5 bg-[#2B304C] text-white text-sm font-bold uppercase tracking-wider rounded-md hover:bg-gray-900 transition-colors shadow-lg flex items-center justify-center gap-3 mt-4">
-                Kirim Pesan <FontAwesomeIcon icon={faPaperPlane} />
-              </button>
+                           {/* Tombol Submit */}
+              {error && (
+                <p className="text-sm text-red-600 bg-red-50 rounded-md px-4 py-2">{error}</p>
+              )}
+              {status === 'sukses' && (
+                <p className="text-sm text-green-700 bg-green-50 rounded-md px-4 py-2">
+                  Terima kasih, pesan Anda sudah terkirim. Tim kami akan menghubungi Anda kembali.
+                </p>
+              )}
 
+              <button
+                type="submit"
+                disabled={status === 'kirim'}
+                className="w-full md:w-auto px-8 py-3.5 bg-[#2B304C] text-white text-sm font-bold uppercase tracking-wider rounded-md hover:bg-gray-900 transition-colors shadow-lg flex items-center justify-center gap-3 mt-4 disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {status === 'kirim' ? 'Mengirim...' : 'Kirim Pesan'} <FontAwesomeIcon icon={faPaperPlane} />
+              </button>
             </form>
           </div>
         </div>

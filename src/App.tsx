@@ -16,7 +16,7 @@ function App() {
 
       <Navbar activePage={activePage} setActivePage={setActivePage} />
        
-        <main className="flex-grow pt-[144px]">
+        <main className="flex-grow">
           {activePage === 'beranda' && <Home setActivePage={setActivePage} />}
           {activePage === 'tentang' && <About />}
           {activePage === 'layanan' && <Layanan />}

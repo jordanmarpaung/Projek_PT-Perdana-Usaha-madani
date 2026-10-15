@@ -1,14 +1,14 @@
-import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faShieldHalved, faCheckCircle, faEye, faBullseye, 
-  faHandshakeAngle, faChartLine, faSitemap 
+  faHandshakeAngle, faChartLine,
 } from '@fortawesome/free-solid-svg-icons';
 
 // ==============================================================
 // IMPORT FOTO TIM (Pastikan nama file dan ekstensinya sesuai di folder assets!)
 // ==============================================================
 import fotoBenny from '../assets/komisaris.png';
+import fotoJuliana from '../assets/komisaris.jpeg';     // <- Sesuaikan nama file asli Anda
 import fotoRosinta from '../assets/Direktur.png';
 import fotoDennies from '../assets/manajer.jpeg';     // <- Sesuaikan nama file asli Anda
 import fotoTiurmaida from '../assets/finance.jpeg'; // <- Sesuaikan nama file asli Anda
@@ -80,7 +80,7 @@ export default function About() {
       {/* Nilai Perusahaan */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-12">Nilai Inti Perusahaan (Core Values)</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-12">Nilai Perusahaan (Core Values)</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="p-8">
               <div className="w-20 h-20 bg-yellow-50 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -94,14 +94,14 @@ export default function About() {
                 <FontAwesomeIcon icon={faShieldHalved} className="text-3xl text-yellow-700" />
               </div>
               <h3 className="text-xl font-bold mb-3">Transparansi Data</h3>
-              <p className="text-gray-600">Tata kelola transparan melalui pelaporan akurat. Perlindungan maksimal terhadap kerahasiaan data konsumen sesuai standar privasi.</p>
+              <p className="text-gray-600">Tata kelola yang transparan melalui laporan kinerja yang akurat dan catatan data yang valid, serta menjaga kerahasiaan data konsumen sesuai standar privasi data.</p>
             </div>
             <div className="p-8">
               <div className="w-20 h-20 bg-yellow-50 rounded-full flex items-center justify-center mx-auto mb-6">
                 <FontAwesomeIcon icon={faChartLine} className="text-3xl text-yellow-700" />
               </div>
               <h3 className="text-xl font-bold mb-3">Maksimalisasi Aset</h3>
-              <p className="text-gray-600">Disiplin tinggi dan strategi penagihan terukur untuk menekan angka NPL/DPD, demi mengamankan arus kas mitra.</p>
+              <p className="text-gray-600">Disiplin dan strategi penagihan yang terukur untuk menekan angka NPL/DPD dan menjaga kesehatan arus kas mitra.</p>
             </div>
           </div>
         </div>
@@ -150,7 +150,15 @@ export default function About() {
                   <img src={fotoBenny} alt="Tumpak Benny Marpaung" className="w-full h-full object-cover" />
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900">Tumpak Benny Marpaung</h3>
-                <p className="text-yellow-700 font-bold uppercase tracking-wider text-sm mt-1">Komisaris Utama</p>
+                <p className="text-yellow-700 font-bold uppercase tracking-wider text-sm mt-1">Komisaris utama</p>
+              </div>
+              {/* Komisaris */}
+              <div className="flex flex-col items-center text-center group cursor-pointer">
+                <div className="w-40 h-40 md:w-48 md:h-48 rounded-full bg-white border-4 border-yellow-600 overflow-hidden mb-5 shadow-lg group-hover:scale-105 group-hover:shadow-2xl transition-all duration-300">
+                  <img src={fotoJuliana} alt="Juliana Sitorus" className="w-full h-full object-cover" />    
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900">Juliani Manurung</h3>
+                <p className="text-yellow-700 font-bold uppercase tracking-wider text-sm mt-1">Commissioner</p>
               </div>
 
               {/* Direktur */}
