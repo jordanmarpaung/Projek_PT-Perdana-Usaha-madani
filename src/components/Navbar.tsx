@@ -3,6 +3,7 @@ import logo from '../assets/logo_baru.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
+
 interface NavbarProps {
   activePage: string;
   setActivePage: (page: string) => void;
@@ -88,7 +89,7 @@ export default function Navbar({ activePage, setActivePage }: NavbarProps) {
             
             <div className="absolute top-10 left-1/2 -translate-x-1/2 w-48 bg-white text-gray-800 shadow-xl rounded-xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 border border-gray-100">
               <button onClick={() => { setActivePage('tentang'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="block w-full text-left px-5 py-3 hover:bg-yellow-50 text-xs font-bold border-b border-gray-50 transition-colors">Profil Perusahaan</button>
-              <button onClick={() => { setActivePage('Tim Kami'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="block w-full text-left px-5 py-3 hover:bg-yellow-50 text-xs font-bold border-b border-gray-50 transition-colors">Jajaran Manajemen</button>
+              <button onClick={() => { setActivePage('Tim Kami'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="block w-full text-left px-5 py-3 hover:bg-yellow-50 text-xs font-bold border-b border-gray-50 transition-colors">Tim Kami</button>
               <button onClick={() => { setActivePage('kegiatan'); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="block w-full text-left px-5 py-3 hover:bg-yellow-50 text-xs font-bold transition-colors">Kegiatan Kami</button>
             </div>
           </div>

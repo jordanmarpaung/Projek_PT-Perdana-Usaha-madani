@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight, faArrowRight, faImages, faTimes } from '@fortawesome/free-solid-svg-icons';
 
@@ -44,9 +44,9 @@ export default function Kegiatan() {
   const [currentIndex, setCurrentIndex] = useState(0);
   
   // 1. STATE BARU UNTUK FITUR POP-UP (LIGHTBOX)
-  // Menyimpan gambar mana yang sedang diklik. Jika null, berarti tidak ada pop-up yang terbuka.
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
+  // Auto slide untuk Hero Banner
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex === slides.length - 1 ? 0 : prevIndex + 1));
@@ -60,6 +60,14 @@ export default function Kegiatan() {
 
   const nextSlide = () => {
     setCurrentIndex((prevIndex) => (prevIndex === slides.length - 1 ? 0 : prevIndex + 1));
+  };
+
+  // 2. FUNGSI BARU UNTUK SCROLL KE BAWAH (Ke Galeri)
+  const scrollToGallery = () => {
+    const gallerySection = document.getElementById('galeri-dokumentasi');
+    if (gallerySection) {
+      gallerySection.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -99,7 +107,11 @@ export default function Kegiatan() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-red-600 text-white px-8 py-3.5 text-sm font-bold hover:bg-red-700 transition shadow-lg flex items-center justify-center gap-3">
+              {/* TOMBOL YANG SUDAH DITAMBAHKAN FUNGSI KLIK (scrollToGallery) */}
+              <button 
+                onClick={scrollToGallery} 
+                className="bg-red-600 text-white px-8 py-3.5 text-sm font-bold hover:bg-red-700 transition shadow-lg flex items-center justify-center gap-3"
+              >
                 {slides[currentIndex].buttonText} <FontAwesomeIcon icon={faArrowRight} />
               </button>
             </div>
@@ -127,7 +139,8 @@ export default function Kegiatan() {
       {/* ========================================== */}
       {/* GALERI DOKUMENTASI (DENGAN FITUR KLIK)     */}
       {/* ========================================== */}
-      <section className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Menambahkan ID galeri-dokumentasi di sini agar tombol atas tau harus turun ke mana */}
+      <section id="galeri-dokumentasi" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">Galeri Dokumentasi</h2>
           <div className="w-24 h-1.5 bg-yellow-600 mx-auto rounded-full mb-6"></div>
@@ -146,7 +159,7 @@ export default function Kegiatan() {
             <div className="h-48 overflow-hidden relative">
               <img src={hut} alt="Puncak Acara" className="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
-                <FontAwesomeIcon icon={faImages} className="text-3xl text-white" />
+                <FontAwesomeIcon icon={faImages} className="text-3xl text-white transform translate-y-4 group-hover:translate-y-0 transition-all duration-300" />
               </div>
             </div>
             <div className="p-5 text-center bg-gray-50 group-hover:bg-yellow-50 transition-colors">
@@ -162,7 +175,7 @@ export default function Kegiatan() {
             <div className="h-48 overflow-hidden relative">
               <img src={hadiah} alt="Bagi Hadiah" className="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
-                <FontAwesomeIcon icon={faImages} className="text-3xl text-white" />
+                <FontAwesomeIcon icon={faImages} className="text-3xl text-white transform translate-y-4 group-hover:translate-y-0 transition-all duration-300" />
               </div>
             </div>
             <div className="p-5 text-center bg-gray-50 group-hover:bg-yellow-50 transition-colors">
@@ -178,7 +191,7 @@ export default function Kegiatan() {
             <div className="h-48 overflow-hidden relative">
               <img src={lomba} alt="Lomba Tim" className="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
-                <FontAwesomeIcon icon={faImages} className="text-3xl text-white" />
+                <FontAwesomeIcon icon={faImages} className="text-3xl text-white transform translate-y-4 group-hover:translate-y-0 transition-all duration-300" />
               </div>
             </div>
             <div className="p-5 text-center bg-gray-50 group-hover:bg-yellow-50 transition-colors">
@@ -194,7 +207,7 @@ export default function Kegiatan() {
             <div className="h-48 overflow-hidden relative">
               <img src={konsentrasi} alt="Momen Seru" className="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
-                <FontAwesomeIcon icon={faImages} className="text-3xl text-white" />
+                <FontAwesomeIcon icon={faImages} className="text-3xl text-white transform translate-y-4 group-hover:translate-y-0 transition-all duration-300" />
               </div>
             </div>
             <div className="p-5 text-center bg-gray-50 group-hover:bg-yellow-50 transition-colors">
@@ -209,22 +222,22 @@ export default function Kegiatan() {
       {/* ========================================== */}
       {selectedImage && (
         <div 
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 transition-opacity animate-fade-in"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 transition-opacity animate-fade-in backdrop-blur-sm"
           onClick={() => setSelectedImage(null)} // Menutup pop-up jika background hitam diklik
         >
           {/* Tombol Silang (Tutup) */}
           <button 
-            className="absolute top-6 right-6 md:top-10 md:right-10 text-white hover:text-red-500 text-4xl transition-colors focus:outline-none"
+            className="absolute top-6 right-6 md:top-10 md:right-10 text-white hover:text-red-500 text-4xl transition-colors focus:outline-none z-[110]"
             onClick={() => setSelectedImage(null)}
           >
             <FontAwesomeIcon icon={faTimes} />
           </button>
           
-          {/* Gambar Besar yang Muncul */}
+          {/* Gambar Besar yang Muncul ke Depan */}
           <img 
             src={selectedImage} 
             alt="Galeri Full" 
-            className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl transform scale-100 transition-transform duration-300"
+            className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl transform scale-100 transition-transform duration-300 relative z-[105]"
             onClick={(e) => e.stopPropagation()} // Mencegah tertutup jika gambarnya yang diklik
           />
         </div>

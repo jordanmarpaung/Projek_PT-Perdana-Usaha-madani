@@ -1,3 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+/* Efek masuk halaman Beranda */
+@keyframes masuk-naik {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes masuk-naik-jauh {
+  from { opacity: 0; transform: translateY(70px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes masuk-pudar {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes masuk-latar {
+  from { opacity: 0; transform: scale(1.06); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.anim-naik      { animation: masuk-naik 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.anim-naik-jauh { animation: masuk-naik-jauh 1.2s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.anim-pudar     { animation: masuk-pudar 1s ease-out both; }
+.anim-latar     { animation: masuk-latar 1.6s ease-out both; }
+
+.tunda-1 { animation-delay: 0.2s; }
+.tunda-2 { animation-delay: 0.35s; }
+.tunda-3 { animation-delay: 0.5s; }
+.tunda-4 { animation-delay: 0.65s; }
+.tunda-5 { animation-delay: 0.8s; }
+.tunda-6 { animation-delay: 1.3s; }
+
+/* Hormati pengguna yang mematikan animasi di perangkatnya */
+@media (prefers-reduced-motion: reduce) {
+  .anim-naik, .anim-naik-jauh, .anim-pudar, .anim-latar {
+    animation: none;
+    opacity: 1;
+  }
+}
