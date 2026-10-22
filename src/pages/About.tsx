@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next'; // 1. IMPORT FUNGSI BAHASA
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faShieldHalved, faCheckCircle, faEye, faBullseye, 
@@ -6,9 +7,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import Reveal from '../components/Reveal';
 
-// ==============================================================
-// IMPORT FOTO TIM (Pastikan nama file dan ekstensinya sesuai di folder assets!)
-// ==============================================================
 import fotoBenny from '../assets/komisaris.png';
 import fotoJuliana from '../assets/komisaris.jpeg';     
 import fotoRosinta from '../assets/Direktur.png';
@@ -18,7 +16,8 @@ import fotoFitri from '../assets/HRDnya.jpeg';
 import fotoSriAyu from '../assets/Q,_control.jpeg';      
 
 export default function About() {
-  // Memastikan saat halaman dibuka atau di-refresh, scroll selalu kembali ke paling atas
+  const { t } = useTranslation(); // 2. INISIALISASI FUNGSI
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -30,11 +29,11 @@ export default function About() {
       <section className="bg-gray-900 pt-32 pb-24 text-center border-b-[6px] border-yellow-700">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
-            <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-6">Identitas Perusahaan</h1>
+            <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-6">{t('about.hero.title')}</h1>
           </Reveal>
           <Reveal delay={150}>
             <p className="text-lg text-gray-300 leading-relaxed max-w-3xl mx-auto">
-             Mengenal PT Perdana Usaha Madani melalui latar belakang pendirian, visi dan misi, nilai perusahaan, serta jajaran pimpinan dan tim operasional.
+              {t('about.hero.desc')}
             </p>
           </Reveal>
         </div>
@@ -46,12 +45,12 @@ export default function About() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <Reveal>
               <div>
-                <h2 className="text-3xl font-bold text-gray-900 mb-6">Tentang Kami</h2>
+                <h2 className="text-3xl font-bold text-gray-900 mb-6">{t('about.history.title')}</h2>
                 <p className="text-gray-600 mb-4 leading-relaxed text-lg">
-                  PT Perdana Usaha Madani didirikan secara resmi di Bekasi pada tanggal 13 Oktober 2023 berdasarkan Akta No. 03. Perusahaan ini diprakarsai oleh Tumpak Benny Marpaung dan Rosinta Uli Manurung, serta didukung oleh tim profesional yang memiliki rekam jejak panjang dan pengalaman mendalam di bidang layanan pemulihan kredit bermasalah (Desk Collection).
+                  {t('about.history.p1')}
                 </p>
                 <p className="text-gray-600 mb-6 leading-relaxed text-lg">
-                 Berpusat di Ruko Rose Garden 5 No. 20, Galaxy, Bekasi Selatan, kami berkomitmen membangun organisasi yang berorientasi pada kepuasan mitra bisnis dengan senantiasa menjunjung tinggi integritas, kejujuran, dan profesionalisme. PT Perdana Usaha Madani hadir sebagai mitra strategis yang memberikan solusi inovatif dan aplikatif bagi sektor perbankan maupun non-perbankan dalam menavigasi serta mengatasi berbagai tantangan kredit.
+                  {t('about.history.p2')}
                 </p>
               </div>
             </Reveal>
@@ -59,23 +58,23 @@ export default function About() {
             <Reveal delay={200}>
               <div className="bg-gray-50 border border-gray-200 p-8 rounded-xl shadow-inner">
                 <FontAwesomeIcon icon={faShieldHalved} className="text-5xl text-yellow-600 mb-6" />
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Legalitas Korporasi</h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-4">{t('about.legal.title')}</h3>
                 <ul className="space-y-4 text-gray-600">
                   <li className="flex items-start">
                     <FontAwesomeIcon icon={faCheckCircle} className="text-green-600 mt-1 mr-3 flex-shrink-0" /> 
-                    <div><span className="font-bold text-gray-800">Akta Pendirian:</span> No. 03 (Tanggal 13 Oktober 2023)</div>
+                    <div><span className="font-bold text-gray-800">{t('about.legal.l1.title')}</span> {t('about.legal.l1.desc')}</div>
                   </li>
                   <li className="flex items-start">
                     <FontAwesomeIcon icon={faCheckCircle} className="text-green-600 mt-1 mr-3 flex-shrink-0" /> 
-                    <div><span className="font-bold text-gray-800">SK Kemenkumham:</span> Pengesahan Resmi Badan Hukum PT</div>
+                    <div><span className="font-bold text-gray-800">{t('about.legal.l2.title')}</span> {t('about.legal.l2.desc')}</div>
                   </li>
                   <li className="flex items-start">
                     <FontAwesomeIcon icon={faCheckCircle} className="text-green-600 mt-1 mr-3 flex-shrink-0" /> 
-                    <div><span className="font-bold text-gray-800">NIB (Nomor Induk Berusaha):</span> Terdaftar Resmi Terintegrasi OSS</div>
+                    <div><span className="font-bold text-gray-800">{t('about.legal.l3.title')}</span> {t('about.legal.l3.desc')}</div>
                   </li>
                   <li className="flex items-start">
                     <FontAwesomeIcon icon={faCheckCircle} className="text-green-600 mt-1 mr-3 flex-shrink-0" /> 
-                    <div><span className="font-bold text-gray-800">NPWP Badan Usaha:</span> Terdaftar Wajib Pajak Badan Usaha</div>
+                    <div><span className="font-bold text-gray-800">{t('about.legal.l4.title')}</span> {t('about.legal.l4.desc')}</div>
                   </li>
                 </ul>
               </div>
@@ -91,19 +90,15 @@ export default function About() {
             <Reveal delay={100}>
               <div className="bg-white p-10 rounded-xl shadow-md border-t-4 border-yellow-600 h-full">
                 <FontAwesomeIcon icon={faEye} className="text-4xl text-yellow-600 mb-6" />
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">Visi Kami</h2>
-                <p className="text-gray-600 text-lg leading-relaxed">
-                  Menjadi perusahaan yang profesional dan terpercaya di bidang jasa penagihan utang. Kami berkomitmen untuk menjadi pihak yang diandalkan oleh lembaga perbankan maupun non-perbankan, serta berperan sebagai mitra bisnis yang harmonis untuk jangka panjang.
-                </p>
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('about.vision.title')}</h2>
+                <p className="text-gray-600 text-lg leading-relaxed">{t('about.vision.desc')}</p>
               </div>
             </Reveal>
             <Reveal delay={250}>
               <div className="bg-white p-10 rounded-xl shadow-md border-t-4 border-yellow-600 h-full">
                 <FontAwesomeIcon icon={faBullseye} className="text-4xl text-yellow-600 mb-6" />
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">Misi Kami</h2>
-                <p className="text-gray-600 text-lg leading-relaxed">
-                  Berperan aktif dalam pengembangan sektor perbankan dan non-perbankan di Indonesia, khususnya dalam memulihkan kredit bermasalah. Kami hadir sebagai benteng pertahanan terakhir yang memberikan solusi penyelesaian secara terukur.
-                </p>
+                <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('about.mission.title')}</h2>
+                <p className="text-gray-600 text-lg leading-relaxed">{t('about.mission.desc')}</p>
               </div>
             </Reveal>
           </div>
@@ -114,13 +109,13 @@ export default function About() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Reveal>
-            <h2 className="text-3xl font-bold text-gray-900 mb-12">Nilai Perusahaan (Core Values)</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-12">{t('about.values.title')}</h2>
           </Reveal>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { ikon: faHandshakeAngle, judul: 'Etika & Kepatuhan', isi: 'Kepatuhan ketat terhadap OJK dan BI. Praktik penagihan dilakukan dengan sopan, menghormati hak konsumen, dan menolak keras segala bentuk intimidasi.' },
-              { ikon: faShieldHalved, judul: 'Transparansi Data', isi: 'Tata kelola yang transparan melalui laporan kinerja yang akurat dan catatan data yang valid, serta menjaga kerahasiaan data konsumen sesuai standar privasi data.' },
-              { ikon: faChartLine, judul: 'Maksimalisasi Aset', isi: 'Disiplin dan strategi penagihan yang terukur untuk menekan angka NPL/DPD dan menjaga kesehatan arus kas mitra.' }
+              { ikon: faHandshakeAngle, judul: t('about.values.v1.title'), isi: t('about.values.v1.desc') },
+              { ikon: faShieldHalved, judul: t('about.values.v2.title'), isi: t('about.values.v2.desc') },
+              { ikon: faChartLine, judul: t('about.values.v3.title'), isi: t('about.values.v3.desc') }
             ].map((nilai, idx) => (
               <Reveal key={nilai.judul} delay={idx * 150}>
                 <div className="p-8 h-full">
@@ -142,16 +137,14 @@ export default function About() {
           
           <Reveal>
             <div className="text-center mb-20">
-              <h2 className="text-3xl font-bold text-gray-900 mb-4">Jajaran Kepemimpinan Perusahaan</h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Didukung oleh jajaran profesional dengan pengalaman mumpuni dalam manajemen penagihan, keuangan, dan kontrol kualitas.
-              </p>
+              <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('about.team.title')}</h2>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">{t('about.team.desc')}</p>
             </div>
           </Reveal>
           
           <div className="max-w-5xl mx-auto">
             
-            {/* BARIS 1: PUNCAK PIMPINAN (Komisaris & Direktur) */}
+            {/* BARIS 1: PUNCAK PIMPINAN */}
             <Reveal delay={150}>
               <div className="flex flex-col md:flex-row justify-center gap-12 md:gap-24 mb-16">
                 
@@ -160,7 +153,7 @@ export default function About() {
                     <img src={fotoBenny} alt="Tumpak Benny Marpaung" className="w-full h-full object-cover" />
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900">Tumpak Benny Marpaung</h3>
-                  <p className="text-yellow-700 font-bold uppercase tracking-wider text-sm mt-1">Komisaris Utama</p>
+                  <p className="text-yellow-700 font-bold uppercase tracking-wider text-sm mt-1">{t('about.team.roles.komisaris')}</p>
                 </div>
 
                 <div className="flex flex-col items-center text-center group cursor-pointer">
@@ -168,7 +161,7 @@ export default function About() {
                     <img src={fotoJuliana} alt="Juliani Manurung" className="w-full h-full object-cover" />    
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900">Juliani Manurung</h3>
-                  <p className="text-yellow-700 font-bold uppercase tracking-wider text-sm mt-1">Commissioner</p>
+                  <p className="text-yellow-700 font-bold uppercase tracking-wider text-sm mt-1">{t('about.team.roles.commissioner')}</p>
                 </div>
 
                 <div className="flex flex-col items-center text-center group cursor-pointer">
@@ -176,13 +169,13 @@ export default function About() {
                     <img src={fotoRosinta} alt="Rosinta Uli Manurung" className="w-full h-full object-cover" />
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900">Rosinta Uli Manurung</h3>
-                  <p className="text-yellow-700 font-bold uppercase tracking-wider text-sm mt-1">Direktur</p>
+                  <p className="text-yellow-700 font-bold uppercase tracking-wider text-sm mt-1">{t('about.team.roles.direktur')}</p>
                 </div>
 
               </div>
             </Reveal>
 
-            {/* BARIS 2: MANAJEMEN TENGAH (Manager) */}
+            {/* BARIS 2: MANAJEMEN TENGAH */}
             <Reveal delay={300}>
               <div className="flex justify-center mb-16">
                 <div className="flex flex-col items-center text-center group cursor-pointer relative">
@@ -192,12 +185,12 @@ export default function About() {
                     <img src={fotoDennies} alt="Dennies Jhonatan Sinaga" className="w-full h-full object-cover" />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900">Dennies Jhonatan Sinaga</h3>
-                  <p className="text-gray-500 font-semibold text-sm mt-1">Manager</p>
+                  <p className="text-gray-500 font-semibold text-sm mt-1">{t('about.team.roles.manager')}</p>
                 </div>
               </div>
             </Reveal>
 
-            {/* BARIS 3: OPERASIONAL INTI (Finance, HRD, QC) */}
+            {/* BARIS 3: OPERASIONAL INTI */}
             <Reveal delay={450}>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-10 relative">
                 <div className="hidden md:block absolute -top-8 left-[16.66%] w-[66.66%] h-[2px] bg-gray-300"></div>
@@ -208,7 +201,7 @@ export default function About() {
                     <img src={fotoTiurmaida} alt="Tiurmaida Manurung" className="w-full h-full object-cover" />
                   </div>
                   <h3 className="text-lg font-bold text-gray-900">Tiurmaida Manurung</h3>
-                  <p className="text-gray-500 text-sm mt-1">Finance</p>
+                  <p className="text-gray-500 text-sm mt-1">{t('about.team.roles.finance')}</p>
                 </div>
 
                 <div className="flex flex-col items-center text-center group cursor-pointer relative">
@@ -217,7 +210,7 @@ export default function About() {
                     <img src={fotoFitri} alt="Supriadi Manurung" className="w-full h-full object-cover" />
                   </div>
                   <h3 className="text-lg font-bold text-gray-900">Supriadi Manurung</h3>
-                  <p className="text-gray-500 text-sm mt-1">HRD / Admin</p>
+                  <p className="text-gray-500 text-sm mt-1">{t('about.team.roles.hrd')}</p>
                 </div>
 
                 <div className="flex flex-col items-center text-center group cursor-pointer relative">
@@ -226,7 +219,7 @@ export default function About() {
                     <img src={fotoSriAyu} alt="Sri Ayu Ningsih Manurung" className="w-full h-full object-cover" />
                   </div>
                   <h3 className="text-lg font-bold text-gray-900">Sri Ayu Ningsih Manurung</h3>
-                  <p className="text-gray-500 text-sm mt-1">Quality Control</p>
+                  <p className="text-gray-500 text-sm mt-1">{t('about.team.roles.qc')}</p>
                 </div>
 
               </div>

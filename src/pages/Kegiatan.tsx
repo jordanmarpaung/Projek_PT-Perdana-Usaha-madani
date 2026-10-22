@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { useTranslation } from 'react-i18next'; // 1. IMPORT TRANSLATION
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight, faArrowRight, faImages, faTimes } from '@fortawesome/free-solid-svg-icons';
 
@@ -9,44 +10,43 @@ import lomba from '../assets/gambar_2.jpeg';
 import konsentrasi from '../assets/gambar_3.jpeg';
 
 export default function Kegiatan() {
+  const { t } = useTranslation(); // 2. INISIALISASI FUNGSI BAHASA
   
-  const slides = [
+  // 3. GUNAKAN useMemo AGAR SLIDES TER-UPDATE KETIKA BAHASA BERUBAH
+  const slides = useMemo(() => [
     {
       image: hut,
-      badge: "KEGIATAN INTERNAL",
-      title: "Perayaan HUT RI Bersama PT PUM",
-      description: "Keluarga besar PT Perdana Usaha Madani berkumpul dalam kebersamaan, mempererat kekompakan tim, dan membangun semangat juang di lingkungan kerja.",
-      buttonText: "Lihat Keseruan"
+      badge: t('activities.slides.s1.badge'),
+      title: t('activities.slides.s1.title'),
+      description: t('activities.slides.s1.desc'),
+      buttonText: t('activities.slides.s1.btn')
     },
     {
       image: hadiah,
-      badge: "APRESIASI TIM",
-      title: "Semarak Pembagian Hadiah",
-      description: "Momen penyerahan penghargaan dan hadiah perlombaan untuk memicu semangat, motivasi kerja, serta senyum kebahagiaan seluruh staf.",
-      buttonText: "Dokumentasi Hadiah"
+      badge: t('activities.slides.s2.badge'),
+      title: t('activities.slides.s2.title'),
+      description: t('activities.slides.s2.desc'),
+      buttonText: t('activities.slides.s2.btn')
     },
     {
       image: lomba,
-      badge: "LOMBA TRADISIONAL",
-      title: "Lomba Makan Kerupuk",
-      description: "Gelak tawa dan antusiasme mewarnai perlombaan tradisional antar divisi, membuktikan bahwa kami tidak hanya serius bekerja, tetapi juga bisa bersenang-senang bersama.",
-      buttonText: "Lihat Perlombaan"
+      badge: t('activities.slides.s3.badge'),
+      title: t('activities.slides.s3.title'),
+      description: t('activities.slides.s3.desc'),
+      buttonText: t('activities.slides.s3.btn')
     },
     {
       image: konsentrasi,
-      badge: "FOKUS & KEKOMPAKAN",
-      title: "Konsentrasi Penuh di Lomba",
-      description: "Aktivitas internal yang mencerminkan pentingnya ketelitian, keseimbangan, dan kerja sama tim yang solid dalam mencapai garis akhir (target).",
-      buttonText: "Lihat Keseruan"
+      badge: t('activities.slides.s4.badge'),
+      title: t('activities.slides.s4.title'),
+      description: t('activities.slides.s4.desc'),
+      buttonText: t('activities.slides.s4.btn')
     }
-  ];
+  ], [t]);
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  
-  // 1. STATE BARU UNTUK FITUR POP-UP (LIGHTBOX)
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  // Auto slide untuk Hero Banner
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex === slides.length - 1 ? 0 : prevIndex + 1));
@@ -62,7 +62,6 @@ export default function Kegiatan() {
     setCurrentIndex((prevIndex) => (prevIndex === slides.length - 1 ? 0 : prevIndex + 1));
   };
 
-  // 2. FUNGSI BARU UNTUK SCROLL KE BAWAH (Ke Galeri)
   const scrollToGallery = () => {
     const gallerySection = document.getElementById('galeri-dokumentasi');
     if (gallerySection) {
@@ -107,7 +106,6 @@ export default function Kegiatan() {
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              {/* TOMBOL YANG SUDAH DITAMBAHKAN FUNGSI KLIK (scrollToGallery) */}
               <button 
                 onClick={scrollToGallery} 
                 className="bg-red-600 text-white px-8 py-3.5 text-sm font-bold hover:bg-red-700 transition shadow-lg flex items-center justify-center gap-3"
@@ -139,13 +137,12 @@ export default function Kegiatan() {
       {/* ========================================== */}
       {/* GALERI DOKUMENTASI (DENGAN FITUR KLIK)     */}
       {/* ========================================== */}
-      {/* Menambahkan ID galeri-dokumentasi di sini agar tombol atas tau harus turun ke mana */}
       <section id="galeri-dokumentasi" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">Galeri Dokumentasi</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">{t('activities.gallery.title')}</h2>
           <div className="w-24 h-1.5 bg-yellow-600 mx-auto rounded-full mb-6"></div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Semangat kerja dan kekeluargaan yang terekam dalam lensa kegiatan rutin perusahaan.
+            {t('activities.gallery.desc')}
           </p>
         </div>
 
@@ -157,13 +154,13 @@ export default function Kegiatan() {
             onClick={() => setSelectedImage(hut)}
           >
             <div className="h-48 overflow-hidden relative">
-              <img src={hut} alt="Puncak Acara" className="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+              <img src={hut} alt={t('activities.gallery.cards.c1')} className="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
                 <FontAwesomeIcon icon={faImages} className="text-3xl text-white transform translate-y-4 group-hover:translate-y-0 transition-all duration-300" />
               </div>
             </div>
             <div className="p-5 text-center bg-gray-50 group-hover:bg-yellow-50 transition-colors">
-              <h4 className="font-bold text-gray-900">Puncak Acara</h4>
+              <h4 className="font-bold text-gray-900">{t('activities.gallery.cards.c1')}</h4>
             </div>
           </div>
           
@@ -173,13 +170,13 @@ export default function Kegiatan() {
             onClick={() => setSelectedImage(hadiah)}
           >
             <div className="h-48 overflow-hidden relative">
-              <img src={hadiah} alt="Bagi Hadiah" className="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+              <img src={hadiah} alt={t('activities.gallery.cards.c2')} className="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
                 <FontAwesomeIcon icon={faImages} className="text-3xl text-white transform translate-y-4 group-hover:translate-y-0 transition-all duration-300" />
               </div>
             </div>
             <div className="p-5 text-center bg-gray-50 group-hover:bg-yellow-50 transition-colors">
-              <h4 className="font-bold text-gray-900">Bagi Hadiah</h4>
+              <h4 className="font-bold text-gray-900">{t('activities.gallery.cards.c2')}</h4>
             </div>
           </div>
 
@@ -189,13 +186,13 @@ export default function Kegiatan() {
             onClick={() => setSelectedImage(lomba)}
           >
             <div className="h-48 overflow-hidden relative">
-              <img src={lomba} alt="Lomba Tim" className="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+              <img src={lomba} alt={t('activities.gallery.cards.c3')} className="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
                 <FontAwesomeIcon icon={faImages} className="text-3xl text-white transform translate-y-4 group-hover:translate-y-0 transition-all duration-300" />
               </div>
             </div>
             <div className="p-5 text-center bg-gray-50 group-hover:bg-yellow-50 transition-colors">
-              <h4 className="font-bold text-gray-900">Lomba Tim</h4>
+              <h4 className="font-bold text-gray-900">{t('activities.gallery.cards.c3')}</h4>
             </div>
           </div>
 
@@ -205,27 +202,26 @@ export default function Kegiatan() {
             onClick={() => setSelectedImage(konsentrasi)}
           >
             <div className="h-48 overflow-hidden relative">
-              <img src={konsentrasi} alt="Momen Seru" className="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+              <img src={konsentrasi} alt={t('activities.gallery.cards.c4')} className="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-300">
                 <FontAwesomeIcon icon={faImages} className="text-3xl text-white transform translate-y-4 group-hover:translate-y-0 transition-all duration-300" />
               </div>
             </div>
             <div className="p-5 text-center bg-gray-50 group-hover:bg-yellow-50 transition-colors">
-              <h4 className="font-bold text-gray-900">Momen Seru</h4>
+              <h4 className="font-bold text-gray-900">{t('activities.gallery.cards.c4')}</h4>
             </div>
           </div>
         </div>
       </section>
 
       {/* ========================================== */}
-      {/* 2. KODE POP-UP (MODAL LIGHTBOX)            */}
+      {/* KODE POP-UP (MODAL LIGHTBOX)               */}
       {/* ========================================== */}
       {selectedImage && (
         <div 
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 transition-opacity animate-fade-in backdrop-blur-sm"
-          onClick={() => setSelectedImage(null)} // Menutup pop-up jika background hitam diklik
+          onClick={() => setSelectedImage(null)} 
         >
-          {/* Tombol Silang (Tutup) */}
           <button 
             className="absolute top-6 right-6 md:top-10 md:right-10 text-white hover:text-red-500 text-4xl transition-colors focus:outline-none z-[110]"
             onClick={() => setSelectedImage(null)}
@@ -233,12 +229,11 @@ export default function Kegiatan() {
             <FontAwesomeIcon icon={faTimes} />
           </button>
           
-          {/* Gambar Besar yang Muncul ke Depan */}
           <img 
             src={selectedImage} 
             alt="Galeri Full" 
             className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl transform scale-100 transition-transform duration-300 relative z-[105]"
-            onClick={(e) => e.stopPropagation()} // Mencegah tertutup jika gambarnya yang diklik
+            onClick={(e) => e.stopPropagation()} 
           />
         </div>
       )}
