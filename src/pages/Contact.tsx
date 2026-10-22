@@ -4,19 +4,22 @@ import { useTranslation } from 'react-i18next'; // 1. IMPORT TRANSLATION
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faPhoneAlt, faEnvelope, faClock, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
-const URL_KIRIM = 'https://script.google.com/macros/s/AKfycbzkd0Q0bEEKl3LIAWMoet4EE1nli2Z3jfll0L1ZD8s1xoZRClQACwa-4zqhZKl0fQfY/exec'
+// GANTI URL DI BAWAH INI DENGAN URL WEB APP LU YANG BARU
+const URL_KIRIM = 'https://script.google.com/macros/s/AKfycbyeuWQlAO7WR0dCQ2a_ZPXx_w7wlUVfrxvVIkYSSijnXKHJ_rmJCCvkiSHl2OcBa80v/exec'
 
 export default function HubungiKami() {
   const { t } = useTranslation(); // 2. INISIALISASI FUNGSI BAHASA
   const [status, setStatus] = useState<'isi' | 'kirim' | 'sukses'>('isi');
   const [error, setError] = useState('');
 
-  const kirim = async (e: FormEvent<HTMLFormElement>) => {
+const kirim = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
     const form = e.currentTarget;
     const f = new FormData(form);
+    
     if (f.get('situs')) return; 
+    
     if (!URL_KIRIM) {
       setError(t('contact.messages.serverError'));
       return;
@@ -24,15 +27,15 @@ export default function HubungiKami() {
 
     setStatus('kirim');
     try {
+      // Data dikirim secara terpisah ke masing-masing kolom
       const res = await fetch(URL_KIRIM, {
         method: 'POST',
         headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({
-          jenis: 'kontak',
           nama: f.get('nama'),
-          perusahaan: f.get('perusahaan'),
           email: f.get('email'),
           hp: f.get('hp'),
+          perusahaan: f.get('perusahaan'),
           perihal: f.get('perihal'),
           pesan: f.get('pesan'),
         }),
@@ -47,7 +50,6 @@ export default function HubungiKami() {
       setError(t('contact.messages.fail') + (err instanceof Error ? err.message : 'Terjadi kesalahan coba lagi'));
     }
   };
-
   return (
     <div className="animate-fade-in bg-gray-50 min-h-screen pt-4 pb-24">
       

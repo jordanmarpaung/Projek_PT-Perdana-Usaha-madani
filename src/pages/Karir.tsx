@@ -18,7 +18,7 @@ type Lowongan = {
   aktif: boolean;
 };
 
-const URL_SHEET = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vS2IHsAwuQNUWkywW6kBXAXa4JvuaVc96wxsEZDC_kYl7bSuIDf6FRWQ50abm6ZNClerG3fcnHOxKdS/pub?gid=0&single=true&output=csv';
+const URL_SHEET = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vThSXQ9VVa-4Uu_BvyWOrzJATXlSGw_BVals59J116u1JH8_tlPPrU8Y0uYP80kdo5jWzIk06K9MOpv/pub?output=csv';
 
 const urlGambar = (g: string) =>
   g.startsWith('http') ? g : `https://drive.google.com/thumbnail?id=${g}&sz=w1000`;
