@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot, faPhoneAlt, faEnvelope, faClock, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 // GANTI URL DI BAWAH INI DENGAN URL WEB APP LU YANG BARU
-const URL_KIRIM = 'https://script.google.com/macros/s/AKfycbyeuWQlAO7WR0dCQ2a_ZPXx_w7wlUVfrxvVIkYSSijnXKHJ_rmJCCvkiSHl2OcBa80v/exec'
+const URL_KIRIM = 'https://script.google.com/macros/s/AKfycbyxsfkEwwk6t8hbQwrQ4h1cny_wGSx0efxuaTjs8DN9nLMqDr_kLUQJqgkpQv2wL4zh/exec'
 
 export default function HubungiKami() {
   const { t } = useTranslation(); // 2. INISIALISASI FUNGSI BAHASA

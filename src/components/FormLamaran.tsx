@@ -11,7 +11,7 @@ type Props = {
 };
 
 // Link Web App dari Google Apps Script (diisi di Langkah 2)
-const URL_KIRIM = 'https://script.google.com/macros/s/AKfycbzUSxF7y-63_67qYJXy5xAeWjYwlxxjj51jfqUGPwUXcex8gCNCfM4ai4RckBrE5CEgag/exec';
+const URL_KIRIM = 'https://script.google.com/macros/s/AKfycbyxsfkEwwk6t8hbQwrQ4h1cny_wGSx0efxuaTjs8DN9nLMqDr_kLUQJqgkpQv2wL4zh/exec';
 
 const MAKS_UKURAN = 2 * 1024 * 1024; // 2MB
 
